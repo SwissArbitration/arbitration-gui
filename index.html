@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/css/bootstrap-slider.min.css"
+    crossorigin="anonymous">
+
+  <link rel="shortcut icon" type="image/png" href="https://avatars0.githubusercontent.com/u/46809075?s=200&v=4"/>
+  <title>Arbitrage</title>
+</head>
+
+<body>
+  <div id="setup" style="display:none">
+    <div id="metamask">
+      <p>Welcome to the <b>Arbitrage</b> <b>D</b>ecentralized <b>App</b>lication!</p>
+      <p>To be able to use this DApp, you will need Metamask on your desktop browser.</p>
+      <a href="https://metamask.io/">
+        <img src="./assets/images/download-metamask.png"/>
+      </a>
+    </div>
+    <div id="contractSelection" class="container setupContainer">
+      <div class="row">
+        <div class="text-center w-100" style="padding-bottom: 25px">
+          <h4>Welcome to the <b>Arbitrage</b> <b>D</b>ecentralized <b>App</b>lication!</h4>          
+        </div>
+        <form style="width:80%;margin:auto;">
+          <div class="form-group">
+            <h5>Access with the escrow contract address</h5>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="inlineFormInputGroup">Address</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">0x</div>
+              </div>
+              <input id="escrowAddressInput" type="text" class="form-control" placeholder="Escrow's address">
+            </div>
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn btn-primary"
+              onclick="return loadAllContracts()">
+              <span class="fa fa-sign-in"></span>
+              Load Contract
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <form style="width:80%;margin:auto;">
+          <div class="form-group">
+            <h5 class="ml-10">Or deploy a new escrow</h5>
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn btn-secondary"
+              onclick="return setupParticipants()">
+              <span class="fa fa-file"></span>
+              New Contract
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="participantsDefinition" class="container setupContainer">
+      <div class="row">
+        <form style="width:80%;margin:auto;">
+          <div class="form-group">
+            <h5 class="ml-10">Define the participants</h5>
+          </div>
+          <div class="form-group">
+            <label for="setupOwnerAddress">Owner</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">0x</div>
+              </div>
+              <input id="setupOwnerAddress" disabled type="text" class="form-control" placeholder="Owner's address">
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="inlineFormInputGroup">Arbiters</label>
+              <div class="input-group mb-2">
+                <input id="setupArbiterName1" type="text" class="form-control nameInput" placeholder="Arbiter1's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupArbiterAddress1" type="text" class="form-control addressInput" placeholder="Arbiter1's address">
+              </div>
+              <div class="input-group mb-2">
+                <input id="setupArbiterName2" type="text" class="form-control nameInput" placeholder="Arbiter2's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupArbiterAddress2" type="text" class="form-control addressInput" placeholder="Arbiter2's address">
+              </div>
+              <div class="input-group mb-2">
+                <input id="setupArbiterName3" type="text" class="form-control nameInput" placeholder="Arbiter3's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupArbiterAddress3" type="text" class="form-control addressInput" placeholder="Arbiter3's address">
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="inlineFormInputGroup">Participants</label>
+               <div class="input-group mb-2">
+                <input id="setupParticipantName1" type="text" class="form-control nameInput" placeholder="Participant1's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupParticipantAddress1" type="text" class="form-control addressInput" placeholder="Participant1's address">
+              </div>
+              <div class="input-group mb-2">
+                <input id="setupParticipantName2" type="text" class="form-control nameInput" placeholder="Participant2's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                   <div class="input-group-text">0x</div>
+                 </div>
+                <input id="setupParticipantAddress2" type="text" class="form-control addressInput" placeholder="Participant2's address">
+               </div>
+               <div class="input-group mb-2">
+                <input id="setupParticipantName3" type="text" class="form-control nameInput" placeholder="Participant3's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupParticipantAddress3" type="text" class="form-control addressInput" placeholder="Participant3's address">
+              </div>
+              <div class="input-group mb-2">
+                <input id="setupParticipantName4" type="text" class="form-control nameInput" placeholder="Participant4's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupParticipantAddress4" type="text" class="form-control addressInput" placeholder="Participant4's address">
+              </div>
+              <div class="input-group mb-2">
+                <input id="setupParticipantName5" type="text" class="form-control nameInput" placeholder="Participant5's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupParticipantAddress5" type="text" class="form-control addressInput" placeholder="Participant5's address">
+              </div>
+              <div class="input-group mb-2">
+                <input id="setupParticipantName6" type="text" class="form-control nameInput" placeholder="Participant6's name">
+                &nbsp;
+                <div class="input-group-prepend">
+                  <div class="input-group-text">0x</div>
+                </div>
+                <input id="setupParticipantAddress6" type="text" class="form-control addressInput" placeholder="Participant6's address">
+              </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary" onclick="return welcome()">
+              <span class="fa fa-arrow-left"></span>
+              Back
+            </button>
+            &nbsp;
+            <button type="submit" class="btn btn-success"
+              onclick="return createNewContracts()">
+              <span class="fa fa-file"></span>
+              Setup contracts
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="contractSetup" class="container setupContainer">
+      <div class="row">
+        <h5>Setting up contracts</h5>
+      </div>
+      <div id="loadingStep1" class="row">
+        <div class="col col-8">Deploying escrow contract...</div>
+        <div class="col col-4">
+          <div id="spinnerStep1" class="spinner-border ml-auto" role="status"></div>
+          <div id="successStep1"><span class="fa fa-check-circle text-success"></span></div>
+        </div>
+      </div>
+      <div id="loadingStep2" class="row mt-2">
+        <div class="col col-8">Deploying arbitrage contract...</div>
+        <div class="col col-4">
+          <div id="spinnerStep2" class="spinner-border ml-auto" role="status"></div>
+          <div id="successStep2"><span class="fa fa-check-circle text-success"></span></div>
+        </div>
+      </div>
+      <div id="loadingStep3" class="row mt-2">
+        <div class="col col-8">Setting up arbitrage as the escrow owner...</div>
+        <div class="col col-4">
+          <div id="spinnerStep3" class="spinner-border ml-auto" role="status"></div>
+          <div id="successStep3"><span class="fa fa-check-circle text-success"></span></div>
+        </div>
+      </div>
+      <div id="loadingStep4" class="row mt-2">
+        <div class="col col-8">Setting up arbiters...</div>
+        <div class="col col-4">
+          <div id="spinnerStep4" class="spinner-border ml-auto" role="status"></div>
+          <div id="successStep4"><span class="fa fa-check-circle text-success"></span></div>
+        </div>
+      </div>
+      <div id="endSetup">
+        <div class="mt-4">
+          <div class="row">
+            <div class="col col-8">Escrow address</div>
+            <div id="escrowAddressSetup" class="col col-4">0x0</div>
+          </div>
+          <div class="row">
+            <div class="col col-8">Arbitrage address</div>
+            <div id="arbitrageAddressSetup" class="col col-4">0x0</div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <h6>Before to continue, remember to backup the contract addresses!</h6>
+        </div>
+        <div class="row mt-4">
+          <form>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success"
+                onclick="return endSetup()">
+                <span class="fa fa-file"></span>
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="app" style="display:none">
+    <div id="headers">
+      <div id="navParticipant">
+        <ul class="nav navParticipant" id="myTabParticipant" role="tablist"
+          style="width:100%">
+          <li class="nav-item">
+            <a class="nav-link active" id="participant-tab" data-toggle="tab"
+              href="#participantref">Escrow</a>
+          </li>
+          <li class="nav-item ml-auto">
+            <a class="nav-link participantTab" id="arbitrage-tab" data-toggle="tab"
+              href="#arbitrageref">
+              <span class="fa fa-flag"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link participantTab" id="about-tab" data-toggle="tab"
+              href="#aboutref">
+              <span class="fa fa-info-circle" /></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="navArbitrator" class="navArbitrator" role="tablist">
+        <ul class="nav" id="myTabArbitrator" style="width:100%">
+          <li class="nav-item">
+            <a class="nav-link" id="arbitrage-tab" data-toggle="tab"
+              href="#arbitrage">
+              Arbitrage
+            </a>
+          </li>
+          <li class="nav-item ml-auto">
+            <a class="nav-link" id="about-tab" data-toggle="tab" href="#about">
+              <span class="fa fa-info-circle" /></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" id="participant" role="tabpanel"
+        aria-labelledby="participant-tab">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="statusParticipant">
+                You are <span id="address">0x----...----</span>
+              </div>
+            </div>
+          </div>
+          <div id="deposits" class="row">
+            <div class="col pt-4">
+              <div id="escrowWithdraw"></div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="contact">Contact</th>
+                    <th scope="col">Their deposits</th>
+                    <th scope="col">Your deposits</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="escrowCurrentPosition">
+                  <tr>
+                    <td colspan="4" scope="row" style="text-align: center">No
+                      funds locked !</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"></td>
+                    <td>
+                      <button type="submit" class="btn btn-primary float-right" onclick="showEscrowForm('deposit')">
+                        <span class="fa fa-upload"></span>
+                        Deposit
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="depositForm">
+              <div class="form-group">
+                <h4 class="ml-10">Deposit funds</h4>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inlineFormInputGroup">Address</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">0x</div>
+                  </div>
+                  <input type="text" class="form-control" id="depositTo" placeholder="Recipient">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inlineFormInputGroup">Amount</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">ETH</div>
+                  </div>
+                  <input type="text" class="form-control" id="depositAmount" placeholder="Amount">
+                </div>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllEscrowForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-primary float-right" onclick="return actionDeposit()">
+                  <span class="fa fa-upload"></span>
+                  Deposit
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="releaseForm">
+              <div class="form-group">
+                <h4 class="ml-10">Release funds to <span id="releaseRecipient"></span></h4>
+              </div>
+              <div class="form-group">
+                <div class="col-md-4 mb-3">
+                  <label for="releaseSlider">Amount</label>
+                  <input id="releaseSlider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"/>
+                  <label id="releaseAmount" for="releaseSlider"></label>
+                </div>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllEscrowForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-success float-right" onclick="return actionRelease()">
+                  <span class="fa fa-unlock-alt"></span>
+                  Release
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="disputeForm">
+              <div class="form-group">
+                <h4 class="ml-10">Raise dispute versus <span id="disputeRecipient"></span></h4>
+              </div>
+              <div class="form-group">
+                <label for="escrowRequestSelect">Requesting</label>
+                <select class="form-control" id="escrowRequestSelect">
+                  <option>Release</option>
+                  <option>Revert</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="col-md-4 pl-0 mb-3">
+                  <label for="disputeSlider">Amount</label>
+                  <input id="disputeSlider" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="25" data-slider-value="50"/>
+                  <label id="disputeAmount" for="disputeSlider"></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Generating reason hash</label>
+                <textarea class="form-control" id="reasonHashArea" rows="3" onkeyup="buildDisputeHash('reasonHashArea', 'escrowReasonHash')"></textarea>
+                <small id="escrowReasonHash">0x</small>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllEscrowForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-warning float-right" onclick="return actionRaiseEscrowDispute()">
+                  <span class="fa fa-flag"></span>
+                  Raise dispute
+                </button>
+              </div>
+            </form>
+          </div>
+          <div id="depositsHistory" class="row">
+            <div class="col pt-5">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th colspan="5">History</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="escrowHistoryBody">
+                  <tr>
+                    <td colspan="5" scope="row" style="text-align: center">No
+                      history found !</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="arbitrage" role="tabpanel"
+        aria-labelledby="arbitrage-tab">
+        <div class="container" *ngIf="loaded">
+          <div class="row">
+            <div class="col">
+              <div class="statusParticipant">
+                You are <span id="arbitrageAddress">0x----...----</span>
+              </div>
+            </div>
+          </div>
+          <div id="activeDisputes" class="row">
+            <div class="col pt-3">
+              <table class="table arbitration">
+                <thead>
+                  <tr>
+                    <th colspan="5">Active Disputes</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Arbitrable</th>
+                    <th scope="col">Claimant</th>
+                    <th scope="col">Defendant</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="arbitrageToDoBody">
+                  <tr>
+                    <td colspan="5" scope="row" style="text-align: center">No
+                      disputes found !</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">
+                      <button type="submit" class="btn btn-primary float-right" onclick="showDisputeForm('raiseDispute', 0)">
+                        Raise dispute
+                        <span class="fa fa-flag"></span>
+                      </button>
+                    </td>
+                  </tr>  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="raiseDisputeForm">
+              <div class="form-group">
+                <h4 class="ml-10">Raise Dispute</h4>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inlineFormInputGroup">Arbitrable</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">0x</div>
+                  </div>
+                  <input type="text" class="form-control" id="arbitrable" placeholder="Arbitrable contract">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inlineFormInputGroup">Defendant</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">0x</div>
+                  </div>
+                  <input type="text" class="form-control" id="defendant" placeholder="Defendant">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Generating reason hash</label>
+                <textarea class="form-control" id="disputeReasonHashArea" rows="3" onkeyup="buildDisputeHash('disputeReasonHashArea', 'disputeReasonHash')"></textarea>
+                <small id="disputeReasonHash">0x</small>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllDisputeForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-primary float-right" onclick="return actionRaiseDispute()">
+                  <span class="fa fa-flag"></span>
+                  Raise Dispute
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="closeDisputeForm">
+              <div class="form-group">
+                <h4 class="ml-10">Close dispute <span id="closeDisputeId"></span></h4>
+              </div>
+              <div class="form-group">
+                Arbitrable <span id="closeArbitrable"></span>
+              </div>
+              <div class="form-group">
+                Claimant <span id="closeClaimant"></span>
+              </div>
+              <div class="form-group">
+                Defendant <span id="closeDefendant"></span>
+              </div>  
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllDisputeForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-danger float-right" onclick="return actionCloseDispute()">
+                  <span class="fa fa-times"></span>
+                  Close dispute
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="suggestResolutionForm">
+              <div class="form-group">
+                <h4 class="ml-10">Suggest Resolution <span id="suggestDisputeId"></span></h4>
+              </div>
+              <div class="form-group">
+                  Dispute Id <span id="suggestDisputeId"></span>
+              </div>
+              <div id="suggestArbitrableFormGroup" class="form-group">
+                Arbitrable <span id="suggestArbitrable"></span>
+              </div>
+              <div class="form-group">
+                Claimant <span id="suggestClaimant"></span>
+              </div>
+              <div class="form-group">
+                Defendant <span id="suggestDefendant"></span>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inlineFormInputGroup">Resolution Hash</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">0x</div>
+                  </div>
+                  <input type="text" class="form-control" id="suggestResolutionHash" placeholder="Resolution hash">
+                </div>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllDisputeForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-info float-right" onclick="return actionSuggestResolution()">
+                  <span class="fa fa-file"></span>
+                  Suggest Resolution
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <form style="width:80%;margin:auto;display:none" id="resolveDisputeForm">
+              <div class="form-group">
+                <h4 class="ml-10">Resolve dispute <span id="resolveDisputeId"></span></h4>
+              </div>
+              <div class="form-group">
+                Arbitrable <span id="resolveArbitrable"></span>
+              </div>
+              <div class="form-group">
+                Claimant <span id="resolveClaimant"></span>
+              </div>
+              <div class="form-group">
+                Defendant <span id="resolveDefendant"></span>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="inlineFormInputGroup">Resolution Hash</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">0x</div>
+                  </div>
+                  <input type="text" class="form-control" id="resolveResolutionHash" placeholder="Resolution hash">
+                </div>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllDisputeForms()">
+                  <span class="fa fa-arrow-left"></span>
+                  Back
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-success float-right" onclick="return actionResolveDispute()">
+                  <span class="fa fa-gavel"></span>
+                  Resolve
+                </button>
+              </div>
+            </form>
+          </div>
+          <div id="disputeHistory" class="row">
+            <div class="col pt-5">
+              <table class="table arbitration">
+                <thead>
+                  <tr>
+                    <th colspan="5">History</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">DisputeId</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">Author</th>
+                    <th scope="col" class="col-md-4">Description</th>
+                  </tr>
+                </thead>
+                <tbody id="arbitrageHistoryBody">
+                  <tr>
+                    <td colspan="5" scope="row" style="text-align: center">No
+                      history found !</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade about" id="about" role="tabpanel"
+        aria-labelledby="about-tab">
+        This tool was build by <a href="https://github.com/sirhill">Cyril
+          Lapinte</a> for <a href="https://github.com/MtPelerin">Mt Pelerin</a>
+      </div>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+  <script
+   src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/bootstrap-slider.min.js"
+   crossorigin="anonymous"></script>
+<script type="text/javascript" src="main.bundle.js"></script></body>
+
+</html>
