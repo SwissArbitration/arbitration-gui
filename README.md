@@ -1,2 +1,3 @@
-# arbitration-gui
-Arbitration GUI
+# arbitration-web 
+
+https://swissarbitration.github.io/arbitration-web/
