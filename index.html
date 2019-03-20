@@ -35,7 +35,7 @@
     <div id="contractSelection" class="container setupContainer">
       <div class="row">
         <div class="text-center w-100" style="padding-bottom: 25px">
-          <h4>Welcome to the <b>Arbitrage</b> <b>D</b>ecentralized <b>App</b>lication!</h4>          
+          <h4>Welcome to the <b>Arbitrage</b> <b>D</b>ecentralized <b>App</b>lication!</h4>
         </div>
         <form style="width:80%;margin:auto;">
           <div class="form-group">
@@ -201,7 +201,7 @@
         </div>
       </div>
       <div id="loadingStep3" class="row mt-2">
-        <div class="col col-8">Setting up arbitrage as the escrow owner...</div>
+        <div class="col col-8">Setting up arbitrage...</div>
         <div class="col col-4">
           <div id="spinnerStep3" class="spinner-border ml-auto" role="status"></div>
           <div id="successStep3"><span class="fa fa-check-circle text-success"></span></div>
@@ -313,7 +313,7 @@
                     <td colspan="3"></td>
                     <td>
                       <button type="submit" class="btn btn-primary float-right" onclick="showEscrowForm('deposit')">
-                        <span class="fa fa-upload"></span>
+                        <span class="fa fa-download"></span>
                         Deposit
                       </button>
                     </td>
@@ -352,7 +352,7 @@
                 </button>
                 &nbsp;
                 <button type="submit" class="btn btn-primary float-right" onclick="return actionDeposit()">
-                  <span class="fa fa-upload"></span>
+                  <span class="fa fa-download"></span>
                   Deposit
                 </button>
               </div>
@@ -479,11 +479,11 @@
                   <tr>
                     <td colspan="5">
                       <button type="submit" class="btn btn-primary float-right" onclick="showDisputeForm('raiseDispute', 0)">
-                        Raise dispute
                         <span class="fa fa-flag"></span>
+                        Raise dispute
                       </button>
                     </td>
-                  </tr>  
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -524,7 +524,7 @@
                 &nbsp;
                 <button type="submit" class="btn btn-primary float-right" onclick="return actionRaiseDispute()">
                   <span class="fa fa-flag"></span>
-                  Raise Dispute
+                  Raise dispute
                 </button>
               </div>
             </form>
@@ -542,7 +542,7 @@
               </div>
               <div class="form-group">
                 Defendant <span id="closeDefendant"></span>
-              </div>  
+              </div>
               <div class="form-row">
                 <button type="submit" class="btn btn-secondary float-right" onclick="return hideAllDisputeForms()">
                   <span class="fa fa-arrow-left"></span>
